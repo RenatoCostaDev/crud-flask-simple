@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+{% block title%} List Data {% endblock title%}
+{% block header%} Table Data {% endblock header%}
+
+{% block body%}
+    <a href="{{url_for('input_data')}}" class="btn btn-primary" style="margin-bottom: 1.3rem;">Input Data</a>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Sucess!</strong>{{ message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="'col">nº</th>
+                <th scope="'col">Name</th>
+                <th scope="'col">Email</th>
+                <th scope="'col">Celphone</th>
+                <th scope="'col">Address</th>
+                <th scope="'col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data_employee in data_employees %}
+            <tr>
+                <th>{{data_employee.id}}</th>
+                <td>{{data_employee.name}}</td>
+                <td>{{data_employee.email}}</td>
+                <td>{{data_employee.celphone}}</td>
+                <td>{{data_employee.address}}</td>
+                <td>
+                    <a href="{{url_for('edit_data', id=data_employee.id)}}" class="btn btn-warning">Edit</a>
+                    <a 
+                        class="btn btn-danger"
+                        onclick="return confirm('Are you sure?')"
+                        href="{{url_for('delete', id=data_employee.id)}}"
+                    >
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+{% endblock body%}
