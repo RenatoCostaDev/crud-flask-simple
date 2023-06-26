@@ -42,7 +42,7 @@ def edit_data(id):
 
 @app.route('/edit-do/<int:id>', methods=['GET', 'POST'])
 def edit_do(id):
-    # data = get_employee(id)
+
     data = get_employee(id, data_employees)
     data['name'] = request.form['name']
     data['email'] = request.form['email']
@@ -54,25 +54,13 @@ def edit_do(id):
 
 @app.route('/delete/<int:id>', methods=['GET', 'POST'])
 def delete(id):
-    # remove_employee(id)
+    
     remove_employee(id, data_employees)
     flash(' Data Deleted successfully!')
     return render_template(
         'index.html',
         data_employees=data_employees
     )
-
-
-# def get_employee(id, data_employees):
-#     for employee in data_employees:
-#         if employee['id'] == int(id):
-#             return employee
-#     return 'Employee not found'
-
-# def remove_employee(id, data_employees):
-#     for employee in data_employees:
-#         if employee['id'] == id:
-#             data_employees.remove(employee)
 
 if __name__=='__main__':
     app.secret_key = 'unique key'
